@@ -61,34 +61,6 @@ FUNC(void , DCM_CODE) Dcm_Init(const Dcm_ConfigType* ConfigPtr)
 	
 }
 
-FUNC(BufReq_ReturnType , DCM_CODE) Dcm_StartOfReception
-(
-	PduIdType id,
-	const PduInfoType* info,
-	PduLengthType TpSduLength,
-	PduLengthType* bufferSizePtr
-)
-{
-	BufReq_ReturnType BufferState;
-	
-	BufferState = DcmDslStartOfReception(id,TpSduLength,bufferSizePtr);
-	
-	return BufferState;
-}
-
-FUNC(BufReq_ReturnType , DCM_CODE) Dcm_CopyRxData
-(
-	PduIdType id,
-	const PduInfoType* info,
-	PduLengthType* bufferSizePtr
-)
-{
-	BufReq_ReturnType RetVal;
-		
-	RetVal = DcmDslCopyRxData(id,info,bufferSizePtr);
-
-	return RetVal;
-}
 
 FUNC(void , DCM_CODE) Dcm_TpRxIndication
 (
@@ -106,16 +78,6 @@ FUNC(void , DCM_CODE) Dcm_TpRxIndication
 	}
 }
 
-FUNC(BufReq_ReturnType , DCM_CODE) Dcm_CopyTxData
-(
-	PduIdType id,
-	const PduInfoType* info,
-	const RetryInfoType* retry,
-	PduLengthType* availableDataPtr
-)
-{
-	
-}
 
 
 

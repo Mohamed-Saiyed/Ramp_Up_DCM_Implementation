@@ -33,6 +33,8 @@ typedef uint8 DcmDslProtocolRxAddrType;
 #define DCM_PHYSICAL_TYPE				((DcmDslProtocolRxAddrType)0x01)
 
 
+typedef uint8 SidTabServiceIdType;
+
 typedef struct 
 {
 	DcmDslBufferSizeType	    DcmDslMaxBufferSize;
@@ -134,6 +136,12 @@ typedef struct
 
 typedef struct 
 {
+	
+	
+}Dcm_DslTimePrameters;
+
+typedef struct 
+{
 	DcmDslProtocolIDType					DcmDslProtocolID;
 	
 	DcmDslProtocolMaximumResponseSizeType	DcmDslProtocolMaximumResponseSize;
@@ -190,9 +198,85 @@ typedef struct
 	
 }Dcm_DslType;
 
+
+typedef uint8 ServiceSecurityLevelType;
+#define SERVICE_SECURITY_LEVEL0		(0x00)
+#define SERVICE_SECURITY_LEVEL1		(0x01)
+#define SERVICE_SECURITY_LEVEL2		(0x02)
+
+
+typedef uint8 Dcm_DspSessionForBootType;
+#define DCM_NO_BOOT					(0x00U)
+#define DCM_OEM_BOOT				(0x01U)
+#define DCM_OEM_BOOT_RESPAPP		(0x02U)
+#define DCM_SYS_BOOT				(0x03U)
+#define DCM_SYS_BOOT_RESPAPP		(0x04U)
+
+typedef uint8 Dcm_DspSessionLevelType;
+
+
+typedef struct 
+{
+	Dcm_DspSessionForBootType DcmDspSessionForBoot;
+	
+	Dcm_DspSessionLevelType   DcmDspSessionLevel;
+	
+	float32					  DcmDspSessionP2ServerMax;
+	
+	float32					  DcmDspSessionP2StarServerMax;
+		
+}Dcm_DspSessionRowType;
+
+typedef struct 
+{
+	
+	
+	
+}Dcm_DsdSubServiceType;
+
+typedef struct 
+{
+	boolean DcmDsdServiceUsed;
+	
+	void (*DcmDsdSidTabFnc)(void);
+	
+	SidTabServiceIdType	DcmDsdSidTabServiceId;
+	
+	boolean DcmDsdSidTabSubfuncAvail;
+	
+	Dcm_ModeRuleType*	DcmDsdSidTabModeRuleRef;
+	
+	ServiceSecurityLevelType DcmDsdSidTabSecurityLevel;
+	
+	Dcm_DspSessionRowType*	DcmDspSessionRow[DCM_NUM_OF_SESSIONS];
+		
+	Dcm_DsdSubServiceType*	DcmDsdSubService;
+	
+}Dcm_DsdServiceType;
+
+typedef struct 
+{
+	uint8	DcmDsdSidTabId;
+	
+	Dcm_DsdServiceType*	DsdService;
+	
+}Dcm_DsdServiceTableType;
+
+typedef struct 
+{
+	boolean DcmDsdRequestManufacturerNotificationEnabled;
+	
+	boolean DcmDsdRequestSupplierNotificationEnabled;
+	
+	Dcm_DsdServiceTableType*	Dcm_DsdServiceTable;
+	
+	
+}Dcm_DsdType;
+
 typedef struct 
 {
 	Dcm_DslType* Dsl;
+	Dcm_DsdType* Dsd;
 	
 }Dcm_ConfigType;
 

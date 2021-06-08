@@ -31,14 +31,17 @@
 
 DcmDslBufferType DslBuffer[DCM_DSL_MAX_BUFFER_SIZE];
 
+Dcm_SessionTiming SessionTimeMangement[DCM_NUM_OF_CONNECTION];
+
 void Dcm_Dsl_Init (const Dcm_ConfigType* ConfigPtr)
 {
 	Dcm_DslBufferInit();
 }
 
-BufReq_ReturnType DcmDslStartOfReception
+FUNC(BufReq_ReturnType , DCM_CODE) Dcm_StartOfReception
 (
 	PduIdType id,
+	const PduInfoType* info,
 	PduLengthType TpSduLength,
 	PduLengthType* bufferSizePtr
 )
@@ -79,7 +82,7 @@ BufReq_ReturnType DcmDslStartOfReception
 
 }
 
-BufReq_ReturnType DcmDslCopyRxData
+FUNC(BufReq_ReturnType , DCM_CODE) Dcm_CopyRxData
 (
 	PduIdType id,
 	const PduInfoType* info,
@@ -129,7 +132,8 @@ BufReq_ReturnType DcmDslCopyRxData
 	return RetVal;
 }
 
-BufReq_ReturnType DcmDslCopyTxData
+
+FUNC(BufReq_ReturnType , DCM_CODE) Dcm_CopyTxData
 (
 	PduIdType id,
 	const PduInfoType* info,
@@ -171,7 +175,7 @@ BufReq_ReturnType DcmDslCopyTxData
 		
 }
 
-FUNC(void , DCM_CODE) DcmDslTpTxConfirmation
+FUNC(void , DCM_CODE) Dcm_TpTxConfirmation
 (
 	PduIdType id,
 	Std_ReturnType result
@@ -189,3 +193,17 @@ FUNC(void , DCM_CODE) DcmDslTpTxConfirmation
 	
 	DcmDslStopStopErrorHandling();
 }
+
+
+
+FUNC(void , DCM_CODE) Dcm_MainFunction(void)
+(
+	PduIdType id,
+	Std_ReturnType result
+)
+{
+	
+	
+}
+
+
